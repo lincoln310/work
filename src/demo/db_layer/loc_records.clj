@@ -1,5 +1,6 @@
 (ns demo.db-layer.loc-records
-  (:require [clojure.java.jdbc :as sql]
+  (:require [clojure.data.json :as json]
+            [clojure.java.jdbc :as sql]
             [clojure.tools.logging :as log]
             [korma.core :as korma-core]
             [korma.db :as korma-db])
@@ -36,6 +37,7 @@
     (= :p_plus k) {k (float v)}
     (= :p_mult k) {k (float v)}
     (= :sid k) {k "default"}
+    (= :tag k) {k (format "'%s'" (json/write-str v))}
     (k (all-columns)) {k v}
     :else nil))
 

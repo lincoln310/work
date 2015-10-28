@@ -5,12 +5,12 @@
 (defn- data []
   "1102房间的设备信息"
   [
-   {:last-part "3D:2E" :tag "00" :loc [0 0]}
-   {:last-part "53:c6" :tag "01" :loc [7.791 0]}
-   {:last-part "61:70" :tag "02" :loc [7.791 6.222]}
-   {:last-part "53:CA" :tag "03" :loc [7.791 13.221]}
-   {:last-part "3D:5c" :tag "04" :loc [7.791 20.376]}
-   {:last-part "53:c2" :tag "05" :loc [0 20.376]}
+   {:last-part "3D:2E" :tag 0 :loc [0 0]}
+   {:last-part "53:c6" :tag 1 :loc [7.791 0]}
+   {:last-part "61:70" :tag 2 :loc [7.791 6.222]}
+   {:last-part "53:CA" :tag 3 :loc [7.791 13.221]}
+   {:last-part "3D:5c" :tag 4 :loc [7.791 20.376]}
+   {:last-part "53:c2" :tag 5 :loc [0 20.376]}
    ])
 
 (defn- base []
