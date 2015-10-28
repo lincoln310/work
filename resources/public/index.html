@@ -1,19 +1,46 @@
 <html>
   <head>
     <meta charset="utf-8">
-    <title>Feature Demo</title>
+    <title>室内定位</title>
   </head>
 
   <body>
-    <h2>Feature Demo</h2>
+    <h2>室内定位</h2>
 
     <ul>
-      <li><a href="whereAmI">/whereAmI</a> (demonstrates sessions)</li>
-      <li><a href="counter">/counter</a> (demonstrates sessions)</li>
-      <li><a href="any/url?foo=bar&x=42">/any/url?foo=bar&x=42</a> (dumps the request map)</li>
-      <li><a href="websocket.html">WebSockets</a></li>
-      <li><a href="sse.html">Server-Sent Events</a></li>
-      <li><a href="http-kit">async-handler</a> from <a href="http://www.http-kit.org/">HTTP Kit</a></li>
+      <li>
+        <h4>查询位置</h4>
+        <a href="whereAmI">/whereAmI</a>
+      </li>
+      <li>
+        <h4>新建节点</h4>
+        <ul>
+          <form id="newIndications" action="/newIndications" method="post" content="application/json">
+            <li>id:<input name="id"></input></li>
+            <li>x:<input name="x"></input></li>
+            <li>y:<input name="y"></input></li>
+            <li>p_plus:<input name="p_plus"></input></li>
+            <li>p_mult:<input name="p_mult"></input></li>
+            <li>valid:<input name="valid"></input></li>
+            <li>tag:<input name="tag"></input></li>
+            <li><input type="submit"><input type="reset"></li>
+          </form>
+        </ul>
+      </li>
+      <li>
+        <h4>更新节点</h4>
+        <ul>
+          <form id="updateIndications" action="/updateIndications" method="post">
+            <li>id:<input name="id"></input></li>
+            <li>location:<input name="location"></input></li>
+            <li>p_plus:<input name="p_plus"></input></li>
+            <li>p_mult:<input name="p_mult"></input></li>
+            <li>valid:<input name="valid"></input></li>
+            <li><input type="submit"><input type="reset"></li>
+          </form>
+        </ul>
+      </li>
+
     </ul>
   </body>
 </html>

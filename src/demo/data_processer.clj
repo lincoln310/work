@@ -4,14 +4,14 @@
             [demo.logic.calc-loc  :as calc]))
 
 (defn do-process [l]
-  "input:  [{:devId 1, :cssi 11.111},
-  {:devId 2, :cssi 22.222},
-  {:devId 3, :cssi 33.333},
-  {:devId 4, :cssi 44.444}]"
-  (log/info l)
-  (let [ids (map :devId l) ;[1 2 3 4]
-        locs (sql/get-record ids) ;["Point(1 1)" "Point(2 2)" ...]
-        indicates (zipmap ids locs)]
-    (println indicates)
-    (calc/get-loc (for [[indicate cssi] indicates]
-      (calc/get-distance indicate cssi)))))
+  "input:  [{:id 1, :rssi 11.111},
+  {:id 2, :rssi 22.222},
+  {:id 3, :rssi 33.333},
+  {:id 4, :rssi 44.444}]"
+  (log/info "before-process" l)
+  (let [ids (map :id l) ;[1 2 3 4]
+        l (map #(conj %1 %2) l (sql/get-record ids))]
+    (log/info "middle-process" l)
+    (calc/get-loc
+     (for [tmp l]
+       (conj tmp (calc/get-distance tmp))))))

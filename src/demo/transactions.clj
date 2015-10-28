@@ -25,8 +25,7 @@
     ret))
 
 (defn dotx [f & args]
-  (tx/required (f args))
-  (dump))
+  (tx/required (f args)))
 
 (defn -main [& _]
   (dump))

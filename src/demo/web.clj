@@ -1,75 +1,116 @@
 (ns demo.web
-  (:require [immutant.web :as web]
-            [immutant.web.middleware :as mw]
+  (:require [clojure.data.json :as json]
             [clojure.pprint :refer (pprint)]
-            [compojure.route :as route]
-            [compojure.core :refer (ANY GET PUT POST defroutes routes wrap-routes)]
-            [ring.util.response :refer (response redirect content-type)]
-            [ring.middleware.params :refer (wrap-params)]
-            [ring.middleware.format :refer [wrap-restful-format]]
-            [liberator.core :refer [resource]]
-            [environ.core :refer (env)]
-            [demo.transactions :refer (dotx)]
-            [demo.db-layer.loc-records :as loc]
-            [demo.logic.calc-loc :as calc]
-            [demo.data-transfer :as dt]
-            [demo.data-processer :as dtproc]
             [clojure.tools.logging :as log]
-            ))
+            [clojure.walk :refer [keywordize-keys]]
+            [compojure.handler :as handler]
+            [compojure.route :as route]
+            [demo.data-processer :as dtproc]
+            [demo.data-transfer :as dt]
+            [demo.db-layer.loc-records :as loc]
+            [demo.transactions :refer (dotx)]
+            [environ.core :refer (env)]
+            [immutant.web :as web]
+            [immutant.web.middleware :as mw]
+            [liberator.core :refer [resource]]
+            [ring.middleware.keyword-params :refer (wrap-keyword-params)]
+            [ring.middleware.params :refer (wrap-params)]
+            [ring.util.response :refer (response redirect content-type)])
+  (:use compojure.core
+        ring.middleware.json))
+
+
+(defn- deal-request [fingerPrint]
+  (-> fingerPrint
+      (dt/do-trans)
+      (dtproc/do-process)))
+
+(defn- deal-response [status & resp]
+  (log/info status resp)
+  (let [ret (apply #(conj {:suc status} %) resp)]
+    (log/info ret)
+    (response (json/write-str ret))))
 
 (defn where-am-i
-  "An example manipulating session state from
-  https://github.com/ring-clojure/ring/wiki/Sessions
-  figerPrint is a list with at least 4 maps in it, for example:
-  [{devId 1, cssi 11.111},
-  {devId 2, cssi 22.222},
-  {devId 3, cssi 33.333},
-  {devId 4, cssi 44.444}]"
+  ^{:doc "http api, 用于提供查询位置的接口，需要提供3个及更多的有效参数来定位。
+reqest params：
+[
+  {
+    bssid: 11:22:33:44:55:66, ;;mac地址
+    cssi: 123.32              ;;信号强度
+  },
+  {bssid: ..., cssi: ...},
+  ...
+]
+reponse: {loc: 'POINT(x y)'}"
+    }
   [req]
   (log/info req)
-  (let [figerPrint (or (get-in req [:query-params "figerprint"] )
-                       (get-in req [:params "figerprint"])
-                       "[{a:1, b:2},{a:2, b:3}]")
-        ret (dtproc/do-process (dt/do-trans figerPrint))]
-    (println "figerPrint =>" figerPrint " your location: " ret)
-    (response ret)))
+  (let [param-len-limit 4]
+    (try 
+        (let [fingerPrint (get-in req [:params :fingerprint])
+              fingerPrint (json/read-str fingerPrint)
+              fingerPrint (keywordize-keys fingerPrint)
+              ;; fingerPrint (dt/convert-all-type fingerPrint)
+              param-len (count fingerPrint)]
+          (log/info fingerPrint)
+          (log/info "param-len:" param-len)
+          (if (< param-len param-len-limit)
+            (deal-response false {:err (format "params length [%d] less than [%d]" param-len param-len-limit)})
+            (deal-response true {:loc (deal-request fingerPrint)})))
+        (catch clojure.lang.ExceptionInfo e
+            (deal-response false {:err (str e)})))))
 
-(defn insert-indications [indications]
-  (for [indication indications]
-    (dotx loc/new-records! indication)))
 
-(defn update-indications [indications]
+(defn insert-indications
+  ^{:doc "添加新的参考点"}
+  [{indication :params}]
+  (log/info indication)
+  (-> indication
+      dt/convert-all-type
+      dt/trans-dssi-to-id
+      (conj {:geo (format "POINT(%f %f)"
+                          (Float/valueOf (:x indication))
+                          (Float/valueOf (:y indication)))})
+      (loc/new-record!)
+      response))
+
+(defn update-indications
+  ^{:doc "更新参考点"}
+  [{indications :params}]
   (for [indication indications]
     (dotx loc/update-record! indication)))
 
 (defroutes app-routes
-  (GET "/" {c :context} (redirect (str c "/index.html")))
-  (GET "/test" [] "hi, you got me!")
+  ^{:doc "设置路由 该部分用于测试链接等用途"}
+  (GET "/index" {c :context} (redirect (str c "/index.html")))
+  (GET "/test" [] (fn [req] "hi, you got me again!"))
   (route/resources "/"))
 
 (defroutes rest-routes
+  ^{:doc "设置路由 定位使用的API"}
   (GET "/whereAmI" [] where-am-i)
-  (PUT "/newIndications" [] insert-indications)
+  (POST "/newIndications" [] insert-indications)
   (POST "/updateIndications" [] update-indications))
 
 (defn wrap-app-mdw
+  ^{:doc "wrap the handler for app-routes"}
   [handler]
-  (fn [req]
-    (log/info "app mdw!")
-    (log/info req)
-    ((wrap-params handler) req)))
+  (-> handler
+      wrap-params))
 
 (defn wrap-rest-mdw
+  ^{:doc "wrap the handler for restful-routes:
+    wrap-keyword-param: 把map参数的key从string转换成keyword.
+    wrap-params: 把request中的query参数提取，并转换成map，加入:params中"}
   [handler]
-  (fn [req]
-    (log/info "rest mdw!")
-    (log/info req)
-    ((-> handler
-         (wrap-restful-format :formats [:json-kw])
-         (wrap-params))
-     req)))
+  (-> handler
+      wrap-keyword-params
+      wrap-json-response
+      wrap-params))
 
 (def app
+  ^{:doc "定义一个application，供服务器提供相应的服务，同时对不同的路由设置不同的handler wrapper。"}
   (routes
    (-> rest-routes
        (wrap-routes wrap-rest-mdw))
@@ -78,10 +119,11 @@
    (route/not-found "Not Found!")))
 
 (defn -main [& {:as args}]
+  ^{:doc "服务器启动函数
+    :host '...'
+    :port ..."}
   (web/run-dmc
     (-> app 
-        (mw/wrap-session {:timeout 20})
-        #_(immutant.web.middleware/wrap-websocket
-            {:on-open (fn [ch] (println "You opened a websocket!"))}))
+        (mw/wrap-session {:timeout 20}))
     (merge {"host" (env :demo-web-host), "port" (env :demo-web-port)}
            args)))
