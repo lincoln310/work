@@ -3,12 +3,15 @@
             [clojure.pprint :refer (pprint)]
             [clojure.tools.logging :as log]
             [clojure.walk :refer [keywordize-keys]]
+            [clj-time.core :as t]
+            [clj-time.coerce :as tc]
             [compojure.handler :as handler]
             [compojure.route :as route]
             [demo.data-processer :as dtproc]
             [demo.data-transfer :as dt]
             [demo.db-layer.loc-records :as loc]
             [demo.transactions :refer (dotx)]
+            [demo.db-layer.req-records :as log-db]
             [environ.core :refer (env)]
             [immutant.web :as web]
             [immutant.web.middleware :as mw]
@@ -21,15 +24,18 @@
 
 
 (defn- deal-request [fingerPrint]
-  (-> fingerPrint
+  (log/info "deal-request" fingerPrint)
+  (-> {:each fingerPrint, :req-time (tc/to-sql-time (t/now))}
       (dt/do-trans)
       (dtproc/do-process)))
 
 (defn- deal-response [status & resp]
-  (log/info status resp)
-  (let [ret (apply #(conj {:suc status} %) resp)]
+  (log/info "resp" status resp)
+  (let [ret (apply #(conj {:suc status} %) resp)
+        ret (merge ret {:res-time (tc/to-sql-time (t/now))})]
     (log/info ret)
-    (response (json/write-str ret))))
+    (log-db/insert! ret)
+    (response (json/write-str (select-keys ret [:suc :loc])))))
 
 (defn where-am-i
   ^{:doc "http api, 用于提供查询位置的接口，需要提供3个及更多的有效参数来定位。
@@ -57,7 +63,7 @@ reponse: {loc: 'POINT(x y)'}"
           (log/info "param-len:" param-len)
           (if (< param-len param-len-limit)
             (deal-response false {:err (format "params length [%d] less than [%d]" param-len param-len-limit)})
-            (deal-response true {:loc (deal-request fingerPrint)})))
+            (deal-response true (deal-request fingerPrint))))
         (catch clojure.lang.ExceptionInfo e
             (deal-response false {:err (str e)})))))
 

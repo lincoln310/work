@@ -17,10 +17,10 @@
   (log/info l)
   (map #(apply conj (map value-convert %)) l))
 
-(defn do-trans [l]
+(defn do-trans [{l :each :as data}]
   "output:  [{:id 1, :rssi 11.111},
   {:id 2, :rssi 22.222},
   {:id 3, :rssi 33.333},
   {:id 4, :rssi 44.444}]"
-  (log/info l)
-  (trans-all-ids l))
+  (log/info data)
+  (merge data {:each (trans-all-ids l)}))

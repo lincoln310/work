@@ -2,46 +2,32 @@
   (:require [clojure.java.jdbc :as sql]
             [clojure.tools.logging :as log]
             [korma.core :as korma-core]
-            [korma.db :as korma-db]))
-
-(def db {:subprotocol "postgresql"
-                  :subname "location"
-                  :user "tsinghua"
-                  :password "tsinghua"})
+            [korma.db :as korma-db])
+  (:use demo.db-layer.db-define
+        demo.db-layer.db-json))
 
 (defn- all-columns []
   "loc table的所有有效字段"
-  #{:id :geom :update_time :valid :p_plus :p_mult :tag})
+  #{:sid :id :geom :update_time :valid :p_plus :p_mult :tag})
 
 (defn create-tb! []
   (sql/db-do-commands
    db (sql/create-table-ddl
        :loc
        [:sid :serial "PRIMARY KEY"]
-       [:id "Bigint"]
-       [:geom "GEOMETRY(Point, 26910)"]
-       [:p_plug :real]
+       [:id "bigint"]
+       [:geom "geometry"]
+       [:valid :int]
+       [:p_plus :real]
        [:p_mult :real]
        [:update_time :timestamp]
-       :table-spec "")))
+       [:tag "json"]
+       )))
 
 (defn drop-tb! []
   (sql/db-do-commands
    db (sql/drop-table-ddl
        :loc)))
-(defn create-test-table
-  [db]
-  "创建数据库"
-  (sql/db-do-commands
-   db (sql/create-table-ddl
-       :loc
-       [:id :int "PRIMARY KEY"]
-       [:geom "Geom"]
-       [:update_time :timestamp]
-       [:valid :int]
-       [:p_plus :real]
-       [:p_mult :real]
-       :table-spec "location of aps")))
 
 (defn- translate-to-sql [[k v]]
   "针对不同的table字段，转换成insert和update所需要的sql指令"
@@ -49,6 +35,7 @@
     (= :geo k) {:geom (format "ST_GeomFromText('%s', 26910)" v)}
     (= :p_plus k) {k (float v)}
     (= :p_mult k) {k (float v)}
+    (= :sid k) {k "default"}
     (k (all-columns)) {k v}
     :else nil))
 
@@ -70,10 +57,10 @@
 
 (defn get-record [cri]
   "获取数据，传入的是id的array"
-  (let [sql-cmd (format "select *, ST_AsText(geom) as geo from loc where id in (%s);"
-                        (clojure.string/join "," cri))
-        ret (sql/query db sql-cmd)]
-    ret))
+  (let [sql-cmd (format "select sid,id,p_plus, p_mult, tag, update_time, ST_AsText(geom) as geo from loc where id in (%s);"
+                        (clojure.string/join "," cri))]
+    (log/info sql-cmd)
+    (sql/query db sql-cmd)))
 
 (defn list-all []
   "获取所有的数据"
