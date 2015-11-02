@@ -1,11 +1,7 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <osm version='0.6' upload='true' generator='JOSM'>
-  <node id='-34512' visible='true' lat='39.11296517835' lon='117.74911815678'>
-    <tag k='bench' v='yes' />
-  </node>
-  <node id='-34511' visible='true' lat='39.11297214842' lon='117.74911815678'>
-    <tag k='bench' v='yes' />
-  </node>
+  <node id='-34512' action='modify' visible='true' lat='39.11296517835' lon='117.74911815678' />
+  <node id='-34511' action='modify' visible='true' lat='39.11297214842' lon='117.74911815678' />
   <node id='-34510' visible='true' lat='39.11296413284' lon='117.74906246123' />
   <node id='-34509' visible='true' lat='39.11290662981' lon='117.74906246123' />
   <node id='-34508' visible='true' lat='39.11290662981' lon='117.74913244897' />
@@ -45,9 +41,7 @@
   <node id='-34493' visible='true' lat='39.11291778192' lon='117.74909839384'>
     <tag k='bench' v='yes' />
   </node>
-  <node id='-34491' visible='true' lat='39.11296517835' lon='117.74912713993'>
-    <tag k='bench' v='yes' />
-  </node>
+  <node id='-34491' action='modify' visible='true' lat='39.11296517835' lon='117.74912713993' />
   <node id='-34490' visible='true' lat='39.11299514961' lon='117.74908312248'>
     <tag k='bench' v='yes' />
   </node>
@@ -66,9 +60,7 @@
   <node id='-34483' visible='true' lat='39.11295193523' lon='117.74907144438'>
     <tag k='bench' v='yes' />
   </node>
-  <node id='-34482' visible='true' lat='39.11297214842' lon='117.74912713993'>
-    <tag k='bench' v='yes' />
-  </node>
+  <node id='-34482' action='modify' visible='true' lat='39.11297214842' lon='117.74912713993' />
   <node id='-34481' visible='true' lat='39.11298608853' lon='117.74906695281'>
     <tag k='bench' v='yes' />
   </node>
@@ -92,11 +84,11 @@
   <node id='-34471' visible='true' lat='39.11295193523' lon='117.74910468205'>
     <tag k='bench' v='yes' />
   </node>
-  <way id='-34496' visible='true'>
+  <way id='-34496' action='modify' visible='true'>
     <nd ref='-34511' />
-    <nd ref='-34482' />
-    <nd ref='-34491' />
     <nd ref='-34512' />
+    <nd ref='-34491' />
+    <nd ref='-34482' />
     <nd ref='-34511' />
     <tag k='indoor' v='wall' />
   </way>
@@ -124,11 +116,11 @@
     <nd ref='-34510' />
     <tag k='barrier' v='wall' />
   </way>
-  <way id='-34473' visible='true'>
+  <way id='-34473' action='modify' visible='true'>
     <nd ref='-34501' />
-    <nd ref='-34502' />
-    <nd ref='-34503' />
     <nd ref='-34504' />
+    <nd ref='-34503' />
+    <nd ref='-34502' />
     <nd ref='-34501' />
     <tag k='indoor' v='wall' />
   </way>

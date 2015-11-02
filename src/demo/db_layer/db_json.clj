@@ -29,13 +29,19 @@
 
 
 (extend-protocol jdbc/IResultSetReadColumn
+
+  (extend-protocol jdbc/IResultSetReadColumn
+    org.postgresql.jdbc4.Jdbc4Array
+    (result-set-read-column [pgobj metadata i]
+      (vec (.getArray pgobj))))
+
   PGobject
   (result-set-read-column [pgobj metadata idx]
     (let [type  (.getType pgobj)
           value (.getValue pgobj)]
-      (log/info type)
-      (log/info value)
+      (log/debug type)
+      (log/debug value)
       (case type
         "json" (json/read-str value :key-fn keyword)
-        "geometry" nil
+        "geometry" (do (log/warn "filterd this type") nil)
         :else value))))
