@@ -1,0 +1,108 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<osm version='0.6' upload='true' generator='JOSM'>
+  <node id='-34423' visible='true' lat='39.11292963103' lon='117.74909839384'>
+    <tag k='bench' v='yes' />
+  </node>
+  <node id='-34422' visible='true' lat='39.11291778192' lon='117.74909839384'>
+    <tag k='bench' v='yes' />
+  </node>
+  <node id='-34421' visible='true' lat='39.11291778192' lon='117.74907144438'>
+    <tag k='bench' v='yes' />
+  </node>
+  <node id='-34420' visible='true' lat='39.11292963103' lon='117.74907144438'>
+    <tag k='bench' v='yes' />
+  </node>
+  <node id='-34419' visible='true' lat='39.11295193523' lon='117.74910468205'>
+    <tag k='bench' v='yes' />
+  </node>
+  <node id='-34418' visible='true' lat='39.11294148014' lon='117.74910468205'>
+    <tag k='bench' v='yes' />
+  </node>
+  <node id='-34417' visible='true' lat='39.11294148014' lon='117.74907144438'>
+    <tag k='bench' v='yes' />
+  </node>
+  <node id='-34416' visible='true' lat='39.11295193523' lon='117.74907144438'>
+    <tag k='bench' v='yes' />
+  </node>
+  <node id='-34415' visible='true' lat='39.11295193523' lon='117.74911905509'>
+    <tag k='bench' v='yes' />
+  </node>
+  <node id='-34414' visible='true' lat='39.11295193523' lon='117.74913244897'>
+    <tag k='bench' v='yes' />
+  </node>
+  <node id='-34413' visible='true' lat='39.11294148014' lon='117.74913244897'>
+    <tag k='bench' v='yes' />
+  </node>
+  <node id='-34412' visible='true' lat='39.11294148014' lon='117.74911905509'>
+    <tag k='bench' v='yes' />
+  </node>
+  <node id='-34411' visible='true' lat='39.113043243' lon='117.7490840208'>
+    <tag k='bench' v='yes' />
+  </node>
+  <node id='-34410' visible='true' lat='39.113043243' lon='117.74909120732'>
+    <tag k='bench' v='yes' />
+  </node>
+  <node id='-34409' visible='true' lat='39.11303209091' lon='117.74909120732'>
+    <tag k='bench' v='yes' />
+  </node>
+  <node id='-34408' visible='true' lat='39.11303209091' lon='117.7490840208'>
+    <tag k='bench' v='yes' />
+  </node>
+  <node id='-34407' visible='true' lat='39.11299514961' lon='117.74908312248'>
+    <tag k='bench' v='yes' />
+  </node>
+  <node id='-34406' visible='true' lat='39.11298608853' lon='117.74908312248'>
+    <tag k='bench' v='yes' />
+  </node>
+  <node id='-34405' visible='true' lat='39.11298608853' lon='117.74906695281'>
+    <tag k='bench' v='yes' />
+  </node>
+  <node id='-34404' visible='true' lat='39.11299514961' lon='117.74906695281'>
+    <tag k='bench' v='yes' />
+  </node>
+  <way id='-34403' visible='true'>
+    <nd ref='-34420' />
+    <nd ref='-34421' />
+    <nd ref='-34422' />
+    <nd ref='-34423' />
+    <nd ref='-34420' />
+    <tag k='bench' v='yes' />
+    <tag k='shop' v='interior_decoration' />
+  </way>
+  <way id='-34402' visible='true'>
+    <nd ref='-34416' />
+    <nd ref='-34417' />
+    <nd ref='-34418' />
+    <nd ref='-34419' />
+    <nd ref='-34416' />
+    <tag k='bench' v='yes' />
+    <tag k='shop' v='interior_decoration' />
+  </way>
+  <way id='-34401' visible='true'>
+    <nd ref='-34412' />
+    <nd ref='-34413' />
+    <nd ref='-34414' />
+    <nd ref='-34415' />
+    <nd ref='-34412' />
+    <tag k='bench' v='yes' />
+    <tag k='shop' v='interior_decoration' />
+  </way>
+  <way id='-34400' visible='true'>
+    <nd ref='-34408' />
+    <nd ref='-34409' />
+    <nd ref='-34410' />
+    <nd ref='-34411' />
+    <nd ref='-34408' />
+    <tag k='bench' v='yes' />
+    <tag k='shop' v='interior_decoration' />
+  </way>
+  <way id='-34399' visible='true'>
+    <nd ref='-34404' />
+    <nd ref='-34405' />
+    <nd ref='-34406' />
+    <nd ref='-34407' />
+    <nd ref='-34404' />
+    <tag k='bench' v='yes' />
+    <tag k='shop' v='interior_decoration' />
+  </way>
+</osm>
