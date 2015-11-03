@@ -68,6 +68,6 @@
   (update-record! [5] {:geo "POINT(6 6)" :valid 0}))
 
 (deftest test-check-inside
-  (-> (check-inside "POINT(0 0)" "POLYGON((-1 -1, -1 1, 1 1, 1 -1, -1 -1))")
+  (-> (check-inside "POINT(0 0)" "POLYGON((-1, -1, -1, 1, 1, 1, 1, -1, -1, -1))")
       :result
       true?))
