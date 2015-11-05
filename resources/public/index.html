@@ -2,6 +2,40 @@
   <head>
     <meta charset="utf-8">
     <title>室内定位</title>
+ <script type='text/javascript' src='OpenLayers.js'></script>  
+    <script type = 'text/javascript'>  
+        var map;  
+          
+        function init()  
+        {  
+            //定义地图边界  
+            var bounds= new OpenLayers.Bounds(75.98585510253906, 18.23404312133789,  
+             131.15216064453125, 50.426963806152344);  
+            var options = {  
+                projection: "EPSG:4326",                  
+                center: new OpenLayers.LonLat(116.5, 39.5),               
+            };  
+            map = new OpenLayers.Map('map_element',options);  
+            var wms = new OpenLayers.Layer.WMS("OpenLayers WMS",  
+                //geoserver所在服务器地址  
+                "http://192.168.1.50:8080/geoserver/karl/wms",   
+                {  
+                    layers: "global"  
+                });  
+            //添加wms图层  
+            map.addLayer(wms);    
+                      
+            //添加control空间  
+            map.addControl(new OpenLayers.Control.LayerSwitcher());  
+            map.addControl(new OpenLayers.Control.MousePosition());  
+            map.addControl(new OpenLayers.Control.ScaleLine());  
+            map.addControl(new OpenLayers.Control.Scale);             
+                                      
+            map.zoomToMaxExtent(bounds);              
+        }         
+                  
+          
+    </script>
   </head>
 
   <body>

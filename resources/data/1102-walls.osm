@@ -1,127 +1,91 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <osm version='0.6' upload='true' generator='JOSM'>
-  <node id='-34512' action='modify' visible='true' lat='39.11296517835' lon='117.74911815678' />
-  <node id='-34511' action='modify' visible='true' lat='39.11297214842' lon='117.74911815678' />
-  <node id='-34510' visible='true' lat='39.11296413284' lon='117.74906246123' />
-  <node id='-34509' visible='true' lat='39.11290662981' lon='117.74906246123' />
-  <node id='-34508' visible='true' lat='39.11290662981' lon='117.74913244897' />
-  <node id='-34507' visible='true' lat='39.11304865175' lon='117.74913244897' />
-  <node id='-34506' visible='true' lat='39.11304865175' lon='117.74906246123' />
-  <node id='-34505' visible='true' lat='39.11302268133' lon='117.74906246123' />
-  <node id='-34504' visible='true' lat='39.11302790888' lon='117.74911815678'>
-    <tag k='bench' v='yes' />
-  </node>
-  <node id='-34503' visible='true' lat='39.11302790888' lon='117.74912713993'>
-    <tag k='bench' v='yes' />
-  </node>
-  <node id='-34502' visible='true' lat='39.11303501834' lon='117.74912713993'>
-    <tag k='bench' v='yes' />
-  </node>
-  <node id='-34501' visible='true' lat='39.11303501834' lon='117.74911815678'>
-    <tag k='bench' v='yes' />
-  </node>
-  <node id='-34500' visible='true' lat='39.11292963103' lon='117.74909839384'>
-    <tag k='bench' v='yes' />
-  </node>
-  <node id='-34499' visible='true' lat='39.11295193523' lon='117.74911905509'>
-    <tag k='bench' v='yes' />
-  </node>
-  <node id='-34498' visible='true' lat='39.11294148014' lon='117.74907144438'>
-    <tag k='bench' v='yes' />
-  </node>
-  <node id='-34497' visible='true' lat='39.11298608853' lon='117.74908312248'>
-    <tag k='bench' v='yes' />
-  </node>
-  <node id='-34495' visible='true' lat='39.11295193523' lon='117.74913244897'>
-    <tag k='bench' v='yes' />
-  </node>
-  <node id='-34494' visible='true' lat='39.113043243' lon='117.7490840208'>
-    <tag k='bench' v='yes' />
-  </node>
-  <node id='-34493' visible='true' lat='39.11291778192' lon='117.74909839384'>
-    <tag k='bench' v='yes' />
-  </node>
-  <node id='-34491' action='modify' visible='true' lat='39.11296517835' lon='117.74912713993' />
-  <node id='-34490' visible='true' lat='39.11299514961' lon='117.74908312248'>
-    <tag k='bench' v='yes' />
-  </node>
-  <node id='-34489' visible='true' lat='39.11294148014' lon='117.74911905509'>
-    <tag k='bench' v='yes' />
-  </node>
-  <node id='-34487' visible='true' lat='39.11294148014' lon='117.74913244897'>
-    <tag k='bench' v='yes' />
-  </node>
-  <node id='-34486' visible='true' lat='39.11299514961' lon='117.74906695281'>
-    <tag k='bench' v='yes' />
-  </node>
-  <node id='-34484' visible='true' lat='39.11291778192' lon='117.74907144438'>
-    <tag k='bench' v='yes' />
-  </node>
-  <node id='-34483' visible='true' lat='39.11295193523' lon='117.74907144438'>
-    <tag k='bench' v='yes' />
-  </node>
-  <node id='-34482' action='modify' visible='true' lat='39.11297214842' lon='117.74912713993' />
-  <node id='-34481' visible='true' lat='39.11298608853' lon='117.74906695281'>
-    <tag k='bench' v='yes' />
-  </node>
-  <node id='-34480' visible='true' lat='39.11303209091' lon='117.7490840208'>
-    <tag k='bench' v='yes' />
-  </node>
-  <node id='-34479' visible='true' lat='39.11303209091' lon='117.74909120732'>
-    <tag k='bench' v='yes' />
-  </node>
-  <node id='-34478' visible='true' lat='39.113043243' lon='117.74909120732'>
-    <tag k='bench' v='yes' />
-  </node>
-  <node id='-34476' visible='true' lat='39.11297354243' lon='117.74906246123' />
-  <node id='-34475' visible='true' lat='39.11294148014' lon='117.74910468205'>
-    <tag k='bench' v='yes' />
-  </node>
-  <node id='-34474' visible='true' lat='39.11301647799' lon='117.74906246123' />
-  <node id='-34472' visible='true' lat='39.11292963103' lon='117.74907144438'>
-    <tag k='bench' v='yes' />
-  </node>
-  <node id='-34471' visible='true' lat='39.11295193523' lon='117.74910468205'>
-    <tag k='bench' v='yes' />
-  </node>
-  <way id='-34496' action='modify' visible='true'>
-    <nd ref='-34511' />
-    <nd ref='-34512' />
-    <nd ref='-34491' />
-    <nd ref='-34482' />
-    <nd ref='-34511' />
+  <node id='-229' action='modify' visible='true' lat='39.11302752166' lon='117.74911767018'>
     <tag k='indoor' v='wall' />
-  </way>
-  <way id='-34492' visible='true'>
-    <nd ref='-34510' />
-    <nd ref='-34476' />
-    <tag k='room' v='entrance' />
-  </way>
-  <way id='-34488' visible='true'>
-    <nd ref='-34474' />
-    <nd ref='-34505' />
-    <tag k='room' v='entrance' />
-  </way>
-  <way id='-34485' visible='true'>
-    <nd ref='-34476' />
-    <nd ref='-34474' />
+  </node>
+  <node id='-228' action='modify' visible='true' lat='39.11302752166' lon='117.74912665333'>
+    <tag k='indoor' v='wall' />
+  </node>
+  <node id='-227' action='modify' visible='true' lat='39.11302055159' lon='117.74911767018'>
+    <tag k='indoor' v='wall' />
+  </node>
+  <node id='-226' action='modify' visible='true' lat='39.11302055159' lon='117.74912665333'>
+    <tag k='indoor' v='wall' />
+  </node>
+  <node id='-209' visible='true' lat='39.11301647799' lon='117.74906246123'>
+    <tag k='indoor' v='wall' />
+  </node>
+  <node id='-207' visible='true' lat='39.11297354243' lon='117.74906246123'>
+    <tag k='indoor' v='wall' />
+  </node>
+  <node id='-205' visible='true' lat='39.11297214842' lon='117.74912713993'>
+    <tag k='indoor' v='wall' />
+  </node>
+  <node id='-203' visible='true' lat='39.11296517835' lon='117.74912713993'>
+    <tag k='indoor' v='wall' />
+  </node>
+  <node id='-199' visible='true' lat='39.11302268133' lon='117.74906246123'>
+    <tag k='indoor' v='wall' />
+  </node>
+  <node id='-197' visible='true' lat='39.11304865175' lon='117.74906246123'>
+    <tag k='indoor' v='wall' />
+  </node>
+  <node id='-195' visible='true' lat='39.11304865175' lon='117.74913244897'>
+    <tag k='indoor' v='wall' />
+  </node>
+  <node id='-193' visible='true' lat='39.11290662981' lon='117.74913244897'>
+    <tag k='indoor' v='wall' />
+  </node>
+  <node id='-191' visible='true' lat='39.11290662981' lon='117.74906246123'>
+    <tag k='indoor' v='wall' />
+  </node>
+  <node id='-189' visible='true' lat='39.11296413284' lon='117.74906246123'>
+    <tag k='indoor' v='wall' />
+  </node>
+  <node id='-187' visible='true' lat='39.11297214842' lon='117.74911815678'>
+    <tag k='indoor' v='wall' />
+  </node>
+  <node id='-185' visible='true' lat='39.11296517835' lon='117.74911815678'>
+    <tag k='indoor' v='wall' />
+  </node>
+  <way id='-230' action='modify' visible='true'>
+    <nd ref='-229' />
+    <nd ref='-227' />
+    <nd ref='-226' />
+    <nd ref='-228' />
+    <nd ref='-229' />
     <tag k='barrier' v='wall' />
   </way>
-  <way id='-34477' visible='true'>
-    <nd ref='-34505' />
-    <nd ref='-34506' />
-    <nd ref='-34507' />
-    <nd ref='-34508' />
-    <nd ref='-34509' />
-    <nd ref='-34510' />
+  <way id='-219' visible='true'>
+    <nd ref='-199' />
+    <nd ref='-197' />
+    <nd ref='-195' />
+    <nd ref='-193' />
+    <nd ref='-191' />
+    <nd ref='-189' />
     <tag k='barrier' v='wall' />
   </way>
-  <way id='-34473' action='modify' visible='true'>
-    <nd ref='-34501' />
-    <nd ref='-34504' />
-    <nd ref='-34503' />
-    <nd ref='-34502' />
-    <nd ref='-34501' />
-    <tag k='indoor' v='wall' />
+  <way id='-217' visible='true'>
+    <nd ref='-207' />
+    <nd ref='-209' />
+    <tag k='barrier' v='wall' />
+  </way>
+  <way id='-215' visible='true'>
+    <nd ref='-209' />
+    <nd ref='-199' />
+    <tag k='room' v='entrance' />
+  </way>
+  <way id='-213' visible='true'>
+    <nd ref='-189' />
+    <nd ref='-207' />
+    <tag k='room' v='entrance' />
+  </way>
+  <way id='-211' action='modify' visible='true'>
+    <nd ref='-187' />
+    <nd ref='-185' />
+    <nd ref='-203' />
+    <nd ref='-205' />
+    <nd ref='-187' />
+    <tag k='barrier' v='wall' />
   </way>
 </osm>

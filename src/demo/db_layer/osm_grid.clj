@@ -18,7 +18,7 @@
         lon-range (- max_lon min_lon)]
     (for [x (range 0 lon-range 50)
           y (range 0 lat-range 50)]
-      {:lon (+ x min_lon) :lat (+ y min_lat)})))
+      {:lon (+ x min_lon) :lat (+ y min_lat) :x x :y y})))
 
 (defn get-geometry-point [m]
   (format "POINT(%s %s)" (:lon m) (:lat m)))
@@ -81,7 +81,30 @@
 
 (defn get-available-grid []
   (let [polygons (map get-geometry-polygon-from-lonlat (get-blocked-polygons-lonlat))
-        points (map-indexed (fn [idx itm] (merge {:id idx} itm)) (get-grid (get-bondingbox)))]
-    (filter #(not (check-inside-any % polygons)) points)))
+        points (get-grid (get-bondingbox))]
+    (map-indexed (fn [idx itm] (merge {:id idx} itm))
+                 (filter #(not (check-inside-any % polygons)) points))))
 
+(defn check-adjacency [p1 p2]
+  (if (and (>= 50 (Math/abs (- (:x p1) (:x p2))))
+          (>= 50 (Math/abs (- (:y p1) (:y p2)))))
+    true
+    false))
 
+(defn create-conn [points]
+  (for [p1 points p2 points :when (not= p1 p2)]
+    (if (check-adjacency p1 p2) [(:id p1) (:id p2)])))
+
+(defn get-available-conns [conns]
+  (group-by first (filter (comp not nil?) conns)))
+
+(defn get-final-conns [grids]
+  (convert-conns-pairs (get-available-conns (create-conn grids))))
+
+(defn convert-conns-pairs [conns]
+  (for [conn conns]
+    {:id (first conn)
+     :conn (map #(second %) (second conn))}))
+
+(defn get-final [grid]
+  (map #(merge-with :id %1 %2) grid (get-final-conns grid)))
