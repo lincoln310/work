@@ -2,39 +2,13 @@
   <head>
     <meta charset="utf-8">
     <title>室内定位</title>
- <script type='text/javascript' src='OpenLayers.js'></script>  
-    <script type = 'text/javascript'>  
-        var map;  
-          
-        function init()  
-        {  
-            //定义地图边界  
-            var bounds= new OpenLayers.Bounds(75.98585510253906, 18.23404312133789,  
-             131.15216064453125, 50.426963806152344);  
-            var options = {  
-                projection: "EPSG:4326",                  
-                center: new OpenLayers.LonLat(116.5, 39.5),               
-            };  
-            map = new OpenLayers.Map('map_element',options);  
-            var wms = new OpenLayers.Layer.WMS("OpenLayers WMS",  
-                //geoserver所在服务器地址  
-                "http://192.168.1.50:8080/geoserver/karl/wms",   
-                {  
-                    layers: "global"  
-                });  
-            //添加wms图层  
-            map.addLayer(wms);    
-                      
-            //添加control空间  
-            map.addControl(new OpenLayers.Control.LayerSwitcher());  
-            map.addControl(new OpenLayers.Control.MousePosition());  
-            map.addControl(new OpenLayers.Control.ScaleLine());  
-            map.addControl(new OpenLayers.Control.Scale);             
-                                      
-            map.zoomToMaxExtent(bounds);              
-        }         
-                  
-          
+    <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet/v0.7.7/leaflet.css" />
+    <script src="http://cdn.leafletjs.com/leaflet/v0.7.7/leaflet.js"></script>
+    <style>
+      #map_leaflet { height: 700px; }
+    </style>
+
+    <!-- <script type='text/javascript' src='http://www.openlayers.org/api/openlayers.js'> -->
     </script>
   </head>
 
@@ -44,12 +18,12 @@
     <ul>
       <li>
         <h4>查询位置</h4>
-        <a href="whereAmI">/whereAmI</a>
+        <a href="whereami">/whereami</a>
       </li>
       <li>
         <h4>新建节点</h4>
         <ul>
-          <form id="newIndications" action="/newIndications" method="post" content="application/json">
+          <form id="newindications" action="/newindications" method="post" content="application/json">
             <li>id:<input name="id"></input></li>
             <li>x:<input name="x"></input></li>
             <li>y:<input name="y"></input></li>
@@ -64,7 +38,7 @@
       <li>
         <h4>更新节点</h4>
         <ul>
-          <form id="updateIndications" action="/updateIndications" method="post">
+          <form id="updateindications" action="/updateindications" method="post">
             <li>id:<input name="id"></input></li>
             <li>location:<input name="location"></input></li>
             <li>p_plus:<input name="p_plus"></input></li>
@@ -76,5 +50,30 @@
       </li>
 
     </ul>
+    <div id="map_openlayer"></div>
+
+    <div id="map_leaflet"></div>
+    <script type = 'text/javascript'>
+      var mbAttr = 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, ' +
+				'<a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, ' +
+				'Imagery © <a href="http://mapbox.com">Mapbox</a>';
+      var mbUrl = 'https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6IjZjNmRjNzk3ZmE2MTcwOTEwMGY0MzU3YjUzOWFmNWZhIn0.Y8bhBaUMqFiPrDRW9hieoQ';
+
+      var layer_1102 = L.tileLayer('http://localhost:8080/geoserver/tsinghua/wms?service=wms&version=1.1.0&request=getmap&layers=tsinghua:planet_osm_line,tsinghua:planet_osm_polygon&styles=&bbox=1.3107765e7,4737857.0,1.3107774e7,4737878.0&width=330&height=768&srs=epsg:900913&format=image%2fpng');
+
+      var layer_globle = L.tileLayer(mbUrl, {id: 'mapbox.streets',   attribution: mbAttr});
+
+      var map = L.map('map_leaflet', {
+			    center: [131.0776947, 47.3786758],
+			    zoom: 3,
+			    layers: [layer_1102, layer_globle]
+		  });
+      var baseLayers = {
+			    "1102": layer_1102,
+			    "globle": layer_globle
+		  };
+
+		  L.control.layers(baseLayers).addTo(map);
+    </script>
   </body>
 </html>
