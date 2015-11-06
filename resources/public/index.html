@@ -59,7 +59,7 @@
 				'Imagery © <a href="http://mapbox.com">Mapbox</a>';
       var mbUrl = 'https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6IjZjNmRjNzk3ZmE2MTcwOTEwMGY0MzU3YjUzOWFmNWZhIn0.Y8bhBaUMqFiPrDRW9hieoQ';
 
-      var layer_1102 = L.tileLayer('http://localhost:8080/geoserver/tsinghua/wms?service=wms&version=1.1.0&request=getmap&layers=tsinghua:planet_osm_line,tsinghua:planet_osm_polygon&styles=&bbox=1.3107765e7,4737857.0,1.3107774e7,4737878.0&width=330&height=768&srs=epsg:900913&format=image%2fpng');
+      var layer_1102 = L.tileLayer('http://192.168.1.109:8080/geoserver/tsinghua/wms?service=wms&version=1.1.0&request=getmap&layers=tsinghua:planet_osm_line,tsinghua:planet_osm_polygon&styles=&bbox=1.3107765e7,4737857.0,1.3107774e7,4737878.0&width=330&height=768&srs=epsg:900913&format=image%2fpng');
 
       var layer_globle = L.tileLayer(mbUrl, {id: 'mapbox.streets',   attribution: mbAttr});
 
